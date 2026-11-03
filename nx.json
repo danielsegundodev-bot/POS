@@ -49,9 +49,6 @@
     "@angular/build:unit-test": {
       "cache": true,
       "inputs": ["default", "^production"]
-    },
-    "test": {
-      "dependsOn": ["^build"]
     }
   },
   "generators": {
@@ -60,6 +57,15 @@
       "linter": "eslint",
       "style": "scss",
       "unitTestRunner": "vitest-angular"
+    },
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "style": "scss",
+      "prefix": "pos"
+    },
+    "@nx/angular:component": {
+      "style": "scss"
     }
   }
 }

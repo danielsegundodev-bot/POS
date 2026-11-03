@@ -12,7 +12,6 @@ module.exports = {
   displayName: 'pos-api',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
-  testMatch: ['**/*_spec.ts', '**/*_test.ts'],
   transform: {
     '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig],
   },
