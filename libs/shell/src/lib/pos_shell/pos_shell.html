@@ -1,0 +1,45 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    class="shell__sidenav"
+    [mode]="sidenavMode()"
+    [opened]="isSidenavOpen()"
+    (openedChange)="setSidenavOpen($event)"
+  >
+    <div class="shell__brand">
+      <mat-icon>storefront</mat-icon>
+      <span>POS</span>
+    </div>
+    <mat-nav-list>
+      @for (item of navItems; track item.path) {
+      <a
+        mat-list-item
+        [routerLink]="item.path"
+        routerLinkActive="shell__link--active"
+        [routerLinkActiveOptions]="{ exact: item.path === '/inicio' }"
+      >
+        <span matListItemIcon>
+          <mat-icon>{{ item.icon }}</mat-icon>
+        </span>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content">
+    <mat-toolbar class="shell__toolbar" color="primary">
+      <button
+        mat-icon-button
+        type="button"
+        aria-label="Abrir menú"
+        (click)="toggleSidenav()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="shell__toolbar-title">{{ pageTitle() }}</span>
+    </mat-toolbar>
+    <main class="shell__main">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

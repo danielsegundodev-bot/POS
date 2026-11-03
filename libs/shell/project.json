@@ -1,0 +1,10 @@
+{
+  "name": "shell",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shell/src",
+  "prefix": "pos",
+  "projectType": "library",
+  "tags": ["type:shell"],
+  "// targets": "to see all targets run: nx show project shell --web",
+  "targets": {}
+}

@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.shell {
+  height: 100%;
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  &__sidenav {
+    width: 17rem;
+  }
+
+  &__toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    &-title {
+      margin-left: 0.75rem;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  &__main {
+    padding: 1.5rem;
+  }
+
+  &__link--active {
+    background-color: color-mix(
+      in srgb,
+      var(--mat-sys-primary) 14%,
+      transparent
+    );
+  }
+}
