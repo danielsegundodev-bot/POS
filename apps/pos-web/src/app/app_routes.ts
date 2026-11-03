@@ -1,3 +1,49 @@
 import { Route } from '@angular/router';
+import { PosShellComponent } from '@pos/shell';
+import { PlaceholderPageComponent } from './pages/placeholder_page';
 
-export const appRoutes: Route[] = [];
+export const appRoutes: Route[] = [
+  {
+    path: '',
+    component: PosShellComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'inicio' },
+      {
+        path: 'inicio',
+        component: PlaceholderPageComponent,
+        data: { title: 'Inicio' },
+      },
+      {
+        path: 'productos',
+        component: PlaceholderPageComponent,
+        data: { title: 'Productos' },
+      },
+      {
+        path: 'inventario',
+        component: PlaceholderPageComponent,
+        data: { title: 'Inventario' },
+      },
+      {
+        path: 'ventas',
+        component: PlaceholderPageComponent,
+        data: { title: 'Ventas' },
+      },
+      {
+        path: 'clientes',
+        component: PlaceholderPageComponent,
+        data: { title: 'Clientes' },
+      },
+      {
+        path: 'reportes',
+        component: PlaceholderPageComponent,
+        data: { title: 'Reportes' },
+      },
+      {
+        path: 'configuracion',
+        component: PlaceholderPageComponent,
+        data: { title: 'Configuración' },
+      },
+      { path: '**', redirectTo: 'inicio' },
+    ],
+  },
+];
