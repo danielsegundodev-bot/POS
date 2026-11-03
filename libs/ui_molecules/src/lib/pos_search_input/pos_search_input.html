@@ -1,0 +1,20 @@
+<pos-field [label]="label()">
+  <div class="search">
+    <mat-icon class="search__icon">search</mat-icon>
+    <input
+      class="search__input"
+      type="search"
+      [value]="currentValue"
+      [placeholder]="placeholder()"
+      (input)="onInput($event)"
+    />
+    <button
+      class="search__clear"
+      type="button"
+      aria-label="Limpiar búsqueda"
+      (click)="clear()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</pos-field>

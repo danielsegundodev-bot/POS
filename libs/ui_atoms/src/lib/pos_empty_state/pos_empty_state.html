@@ -1,0 +1,10 @@
+<div class="pos-empty">
+  <mat-icon class="pos-empty__icon">{{ icon() }}</mat-icon>
+  <h2 class="pos-empty__title">{{ title() }}</h2>
+  @if (message()) {
+  <p class="pos-empty__message">{{ message() }}</p>
+  }
+  <div class="pos-empty__action">
+    <ng-content />
+  </div>
+</div>

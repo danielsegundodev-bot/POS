@@ -1,0 +1,7 @@
+<mat-chip [removable]="removable()" (removed)="emitRemoved()">
+  {{ label() }} @if (removable()) {
+  <button matChipRemove type="button" aria-label="Quitar">
+    <mat-icon>cancel</mat-icon>
+  </button>
+  }
+</mat-chip>

@@ -1,0 +1,28 @@
+@if (variant() === 'basic') {
+<button
+  mat-stroked-button
+  [type]="type()"
+  [disabled]="disabledState()"
+  (click)="emitPress($event)"
+>
+  @if (loading()) {
+  <mat-spinner [diameter]="18" class="pos-button__spinner" />
+  } @else {
+  <ng-content />
+  }
+</button>
+} @else {
+<button
+  mat-flat-button
+  [color]="variant() === 'accent' ? 'accent' : null"
+  [type]="type()"
+  [disabled]="disabledState()"
+  (click)="emitPress($event)"
+>
+  @if (loading()) {
+  <mat-spinner [diameter]="18" class="pos-button__spinner" />
+  } @else {
+  <ng-content />
+  }
+</button>
+}

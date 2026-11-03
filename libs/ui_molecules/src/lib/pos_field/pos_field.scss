@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.pos-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+
+  &__control {
+    display: block;
+  }
+
+  &__error {
+    font-size: 0.75rem;
+    color: var(--mat-sys-error);
+  }
+}
