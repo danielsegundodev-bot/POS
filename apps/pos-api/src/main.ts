@@ -3,6 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
+import './load_env';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app_module';
