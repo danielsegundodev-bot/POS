@@ -6,9 +6,16 @@ import { AuthModule } from '../modules/auth/auth_module';
 import { InventoryModule } from '../modules/inventory/inventory_module';
 import { PrismaModule } from '../modules/prisma/prisma_module';
 import { ProductsModule } from '../modules/products/products_module';
+import { SalesModule } from '../modules/sales/sales_module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, ProductsModule, InventoryModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    ProductsModule,
+    InventoryModule,
+    SalesModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,
