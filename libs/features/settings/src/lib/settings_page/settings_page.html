@@ -1,0 +1,199 @@
+<pos-page-header
+  title="Configuración"
+  subtitle="Ajustes generales y usuarios"
+/>
+
+<div class="settings__grid">
+  <section class="settings__panel">
+    <h2>General</h2>
+    <form class="settings__form" (submit)="saveSettings($event)" novalidate>
+      <pos-field label="Nombre del negocio">
+        <input
+          class="settings__input"
+          type="text"
+          name="storeName"
+          required
+          [value]="storeName()"
+          (input)="setStoreName($event)"
+        />
+      </pos-field>
+      <pos-field label="Dirección">
+        <input
+          class="settings__input"
+          type="text"
+          name="storeAddress"
+          [value]="storeAddress()"
+          (input)="setStoreAddress($event)"
+        />
+      </pos-field>
+      <pos-field label="Moneda">
+        <input
+          class="settings__input"
+          type="text"
+          name="currency"
+          maxlength="3"
+          [value]="currency()"
+          (input)="setCurrency($event)"
+        />
+      </pos-field>
+      <pos-field label="Etiqueta de impuesto">
+        <input
+          class="settings__input"
+          type="text"
+          name="taxLabel"
+          [value]="taxLabel()"
+          (input)="setTaxLabel($event)"
+        />
+      </pos-field>
+
+      @if (error()) {
+      <p class="settings__error" role="alert">{{ error() }}</p>
+      }
+
+      <div class="settings__actions">
+        <pos-button
+          type="submit"
+          variant="primary"
+          [disabled]="loading()"
+          [loading]="loading()"
+        >
+          Guardar
+        </pos-button>
+      </div>
+    </form>
+  </section>
+
+  <section class="settings__panel">
+    <header class="settings__panel-head">
+      <h2>Usuarios</h2>
+      <pos-button variant="primary" type="button" (pressed)="openNewUser()">
+        Nuevo usuario
+      </pos-button>
+    </header>
+
+    @if (usersError()) {
+    <p class="settings__error" role="alert">{{ usersError() }}</p>
+    } @if (userFormOpen()) {
+    <form class="settings__form" (submit)="saveUser($event)" novalidate>
+      <pos-field label="Nombre">
+        <input
+          class="settings__input"
+          type="text"
+          required
+          [value]="userName()"
+          (input)="setUserName($event)"
+        />
+      </pos-field>
+      <pos-field label="Email">
+        <input
+          class="settings__input"
+          type="email"
+          required
+          [value]="userEmail()"
+          (input)="setUserEmail($event)"
+        />
+      </pos-field>
+      <pos-field
+        [label]="editingUserId() ? 'Nueva contraseña (opcional)' : 'Contraseña'"
+      >
+        <input
+          class="settings__input"
+          type="password"
+          [required]="!editingUserId()"
+          [value]="userPassword()"
+          (input)="setUserPassword($event)"
+        />
+      </pos-field>
+      <pos-field label="Rol">
+        <select
+          class="settings__input"
+          [value]="userRole()"
+          (change)="setUserRole($event)"
+        >
+          <option value="admin">Admin</option>
+          <option value="manager">Manager</option>
+          <option value="cashier">Cajero</option>
+        </select>
+      </pos-field>
+      <label class="settings__check">
+        <input
+          type="checkbox"
+          [checked]="userActive()"
+          (change)="setUserActive($event)"
+        />
+        Usuario activo
+      </label>
+      <div class="settings__actions">
+        <pos-button variant="basic" type="button" (pressed)="closeUserForm()">
+          Cancelar
+        </pos-button>
+        <pos-button
+          type="submit"
+          variant="primary"
+          [disabled]="!canSaveUser() || usersLoading()"
+          [loading]="usersLoading()"
+        >
+          Guardar
+        </pos-button>
+      </div>
+    </form>
+    } @if (usersLoading() && users().length === 0) {
+    <pos-empty-state icon="hourglass_empty" title="Cargando…" message="" />
+    } @else if (users().length === 0) {
+    <pos-empty-state
+      icon="people"
+      title="Sin usuarios"
+      message="Crea el primer usuario del sistema."
+    />
+    } @else {
+    <div class="settings__table-wrap">
+      <table class="settings__table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th class="settings__actions-cell">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of users(); track user.id) {
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <span
+                class="settings__badge"
+                [class.settings__badge--inactive]="!user.active"
+              >
+                {{ user.active ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="settings__actions-cell">
+              <pos-button
+                variant="basic"
+                type="button"
+                (pressed)="editUser(user)"
+              >
+                Editar
+              </pos-button>
+              @if (user.active) {
+              <pos-button
+                variant="basic"
+                type="button"
+                (pressed)="removeUser(user)"
+              >
+                Eliminar
+              </pos-button>
+              }
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+  </section>
+</div>

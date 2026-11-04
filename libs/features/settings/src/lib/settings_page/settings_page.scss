@@ -1,0 +1,121 @@
+.settings {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  &__panel {
+    padding: 1rem;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 0.75rem;
+    background: var(--mat-sys-surface-container-low);
+
+    h2 {
+      margin: 0 0 0.85rem;
+      font-size: 1.05rem;
+    }
+  }
+
+  &__panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 0.5rem;
+    font: inherit;
+    background: transparent;
+    color: inherit;
+
+    &:focus {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 1px;
+    }
+  }
+
+  &__check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  &__error {
+    margin: 0;
+    color: var(--mat-sys-error);
+    font-size: 0.875rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  &__table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 0.5rem;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+
+    th,
+    td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+    }
+
+    th {
+      background: var(--mat-sys-surface-container);
+      font-weight: 600;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    background: color-mix(in srgb, var(--mat-sys-tertiary) 24%, transparent);
+
+    &--inactive {
+      background: color-mix(in srgb, var(--mat-sys-error) 16%, transparent);
+    }
+  }
+
+  &__actions-cell {
+    text-align: right !important;
+    white-space: nowrap;
+
+    pos-button {
+      margin-left: 0.35rem;
+    }
+  }
+}
