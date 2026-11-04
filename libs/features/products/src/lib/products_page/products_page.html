@@ -1,0 +1,91 @@
+<pos-page-header title="Productos">
+  <pos-button variant="primary" type="button" (pressed)="createNew()">
+    Nuevo producto
+  </pos-button>
+</pos-page-header>
+
+<div class="products__toolbar">
+  <pos-search-input
+    placeholder="Buscar por nombre o SKU…"
+    (valueChange)="onSearch($event)"
+  />
+</div>
+
+@if (error()) {
+<p class="products__error" role="alert">{{ error() }}</p>
+} @if (loading() && items().length === 0) {
+<pos-empty-state icon="hourglass_empty" title="Cargando…" message="" />
+} @else if (!loading() && items().length === 0) {
+<pos-empty-state
+  icon="inventory_2"
+  title="Sin productos"
+  message="Agrega tu primer producto para comenzar a vender."
+/>
+} @else {
+<div class="products__table-wrap">
+  <table class="products__table">
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Nombre</th>
+        <th class="products__num">Precio</th>
+        <th class="products__num">Stock</th>
+        <th>Estado</th>
+        <th class="products__actions">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (product of items(); track product.id) {
+      <tr>
+        <td>{{ product.sku }}</td>
+        <td>{{ product.name }}</td>
+        <td class="products__num">{{ formatMoney(product.price) }}</td>
+        <td class="products__num">
+          {{ product.trackStock ? product.stock : '—' }}
+        </td>
+        <td>
+          <span
+            class="products__badge"
+            [class.products__badge--inactive]="!product.active"
+          >
+            {{ product.active ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+        <td class="products__actions">
+          <pos-button variant="basic" type="button" (pressed)="edit(product)">
+            Editar
+          </pos-button>
+          @if (product.active) {
+          <pos-button variant="basic" type="button" (pressed)="remove(product)">
+            Desactivar
+          </pos-button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="products__pager">
+  <pos-button
+    variant="basic"
+    type="button"
+    [disabled]="page() <= 1"
+    (pressed)="previousPage()"
+  >
+    Anterior
+  </pos-button>
+  <span class="products__pager-info">
+    Página {{ page() }} de {{ totalPages() }} · {{ total() }} productos
+  </span>
+  <pos-button
+    variant="basic"
+    type="button"
+    [disabled]="page() >= totalPages()"
+    (pressed)="nextPage()"
+  >
+    Siguiente
+  </pos-button>
+</div>
+}
