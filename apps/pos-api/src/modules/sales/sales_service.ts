@@ -18,10 +18,12 @@ type ComputedLine = Omit<Prisma.SaleLineUncheckedCreateInput, 'saleId' | 'id'>;
 
 export interface SaleDetail extends Sale {
   lines: SaleLine[];
+  customer?: { id: string; name: string } | null;
 }
 
 const saleWithLines = {
   lines: true,
+  customer: { select: { id: true, name: true } },
 } as const;
 
 @Injectable()
@@ -32,6 +34,7 @@ export class SalesService {
     const page = query.page ?? 1;
     const pageSize = query.pageSize ?? 20;
     const where: Prisma.SaleWhereInput = {
+      customerId: query.customerId,
       ...(query.from || query.to
         ? {
             createdAt: {
@@ -67,6 +70,15 @@ export class SalesService {
   }
 
   async create(dto: CreateSaleDto, userId?: string): Promise<SaleDetail> {
+    if (dto.customerId) {
+      const customer = await this.prisma.customer.findUnique({
+        where: { id: dto.customerId },
+      });
+      if (!customer || !customer.active) {
+        throw new NotFoundException('Cliente no encontrado o inactivo');
+      }
+    }
+
     const productIds = [...new Set(dto.lines.map((line) => line.productId))];
     const products = await this.prisma.product.findMany({
       where: { id: { in: productIds } },
@@ -158,6 +170,7 @@ export class SalesService {
           paymentReceived: received,
           paymentChange: change,
           userId: userId ?? null,
+          customerId: dto.customerId ?? null,
           lines: { create: computedLines },
         },
         include: saleWithLines,

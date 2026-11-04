@@ -65,6 +65,10 @@ export class SaleQueryDto {
   to?: string;
 
   @IsOptional()
+  @IsString()
+  customerId?: string;
+
+  @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
