@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthApi } from '@pos/data-access';
 import { NAV_ITEMS } from '../nav_items';
 import { PosShellComponent } from './pos_shell';
 
@@ -8,7 +9,10 @@ describe('PosShellComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PosShellComponent, NoopAnimationsModule],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        { provide: AuthApi, useValue: { login: jest.fn() } },
+      ],
     }).compileComponents();
   });
 

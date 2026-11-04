@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -12,6 +13,7 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
+import { AuthStore } from '@pos/features/auth';
 import { filter } from 'rxjs';
 import { NAV_ITEMS, NavItem } from '../nav_items';
 import { ShellStore } from '../shell_store';
@@ -23,6 +25,7 @@ import { ShellStore } from '../shell_store';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
+    MatButtonModule,
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
@@ -32,12 +35,14 @@ import { ShellStore } from '../shell_store';
 })
 export class PosShellComponent {
   private readonly store = inject(ShellStore);
+  private readonly authStore = inject(AuthStore);
   private readonly breakpoint = inject(BreakpointObserver);
   private readonly router = inject(Router);
   private readonly title = inject(Title);
 
   readonly navItems: NavItem[] = NAV_ITEMS;
   readonly isSidenavOpen = this.store.isSidenavOpen;
+  readonly userName = this.authStore.displayName;
   readonly sidenavMode = signal<'side' | 'over'>('side');
   readonly pageTitle = signal('POS');
 
@@ -76,6 +81,11 @@ export class PosShellComponent {
 
   setSidenavOpen(open: boolean): void {
     this.store.setSidenavOpen(open);
+  }
+
+  logout(): void {
+    this.authStore.logout();
+    void this.router.navigateByUrl('/login');
   }
 
   private findTitle(route: {

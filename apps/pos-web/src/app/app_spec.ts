@@ -17,9 +17,10 @@ describe('App', () => {
     expect(fixture.nativeElement.querySelector('router-outlet')).toBeTruthy();
   });
 
-  it('declara las rutas principales del POS', () => {
-    const children = appRoutes[0].children ?? [];
-    const paths = children.map((route) => route.path);
+  it('declara login fuera del shell y las rutas principales dentro', () => {
+    expect(appRoutes.map((route) => route.path)).toContain('login');
+    const shell = appRoutes.find((route) => route.path === '');
+    const paths = (shell?.children ?? []).map((route) => route.path);
     expect(paths).toEqual(
       expect.arrayContaining([
         'inicio',

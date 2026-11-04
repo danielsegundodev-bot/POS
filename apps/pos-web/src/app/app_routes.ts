@@ -1,11 +1,19 @@
 import { Route } from '@angular/router';
+import { LoginPageComponent, authGuard, guestGuard } from '@pos/features/auth';
 import { PosShellComponent } from '@pos/shell';
 import { PlaceholderPageComponent } from './pages/placeholder_page';
 
 export const appRoutes: Route[] = [
   {
+    path: 'login',
+    component: LoginPageComponent,
+    canActivate: [guestGuard],
+    data: { title: 'Iniciar sesión' },
+  },
+  {
     path: '',
     component: PosShellComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'inicio' },
       {
