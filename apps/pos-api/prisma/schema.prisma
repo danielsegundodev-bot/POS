@@ -16,3 +16,30 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model Category {
+  id       String     @id @default(cuid())
+  name     String     @unique
+  color    String?
+  products Product[]
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  sku         String    @unique
+  name        String
+  description String?
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  /** Precio en centavos (unidad mínima). */
+  price       Int       @default(0)
+  /** Fracción impositiva: 0.16 = 16 %. */
+  taxRate     Float     @default(0)
+  trackStock  Boolean   @default(false)
+  stock       Int       @default(0)
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([categoryId])
+}
