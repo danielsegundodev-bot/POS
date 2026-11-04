@@ -3,6 +3,7 @@ export * from './category';
 export * from './customer';
 export * from './pagination';
 export * from './product';
+export * from './report';
 export * from './sale';
 export * from './settings';
 export * from './stock_movement';
