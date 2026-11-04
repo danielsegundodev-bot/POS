@@ -28,6 +28,7 @@ export interface Sale {
   /** Folio legible del ticket, p. ej. "T-000123". */
   folio: string;
   customerId?: string;
+  customer?: { id: string; name: string };
   lines: SaleLine[];
   subtotal: number;
   tax: number;
@@ -41,6 +42,7 @@ export interface Sale {
 export interface SaleQuery {
   from?: string;
   to?: string;
+  customerId?: string;
   page?: number;
   pageSize?: number;
 }
@@ -55,4 +57,5 @@ export interface SaleLineInput {
 export interface CreateSaleInput {
   lines: SaleLineInput[];
   payment: PaymentInfo;
+  customerId?: string;
 }

@@ -15,6 +15,7 @@ interface SaleResponse {
   id: string;
   folio: string;
   customerId?: string | null;
+  customer?: { id: string; name: string } | null;
   lines: SaleLine[];
   subtotal: number;
   tax: number;
@@ -37,6 +38,7 @@ function toSale(response: SaleResponse): Sale {
     id: response.id,
     folio: response.folio,
     customerId: response.customerId ?? undefined,
+    customer: response.customer ?? undefined,
     lines: response.lines,
     subtotal: response.subtotal,
     tax: response.tax,
@@ -56,6 +58,7 @@ export class HttpSalesApi extends SalesApi {
     const params: QueryParams = {
       from: query.from,
       to: query.to,
+      customerId: query.customerId,
       page: query.page,
       pageSize: query.pageSize,
     };
@@ -83,6 +86,7 @@ export class HttpSalesApi extends SalesApi {
         method: input.payment.method,
         received: input.payment.received,
       },
+      customerId: input.customerId,
     };
     return firstValueFrom(
       this.http.post<SaleResponse>('sales', body).pipe(map(toSale)),
