@@ -1,15 +1,24 @@
-export type StockMovementType =
-  'purchase' | 'sale' | 'adjustment' | 'return' | 'transfer';
+export type MovementType = 'in' | 'out' | 'adjustment';
 
 export interface StockMovement {
   id: string;
   productId: string;
-  type: StockMovementType;
-  /** Cantidad con signo: positiva entra, negativa sale. */
+  product?: { id: string; sku: string; name: string };
+  type: MovementType;
+  quantity: number;
+  reason?: string | null;
+  createdAt: string;
+}
+
+export interface MovementQuery {
+  productId?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface MovementInput {
+  productId: string;
+  type: MovementType;
   quantity: number;
   reason?: string;
-  /** Referencia externa: folio de venta, orden de compra, etc. */
-  reference?: string;
-  userId?: string;
-  createdAt: string;
 }

@@ -4,6 +4,8 @@ export * from './lib/api_http';
 export * from './lib/auth_api';
 export * from './lib/auth_interceptor';
 export * from './lib/http_auth_api';
+export * from './lib/http_inventory_api';
 export * from './lib/http_products_api';
+export * from './lib/inventory_api';
 export * from './lib/products_api';
 export * from './lib/tokens';
