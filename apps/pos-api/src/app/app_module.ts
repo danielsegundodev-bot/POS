@@ -7,6 +7,7 @@ import { CustomersModule } from '../modules/customers/customers_module';
 import { InventoryModule } from '../modules/inventory/inventory_module';
 import { PrismaModule } from '../modules/prisma/prisma_module';
 import { ProductsModule } from '../modules/products/products_module';
+import { ReportsModule } from '../modules/reports/reports_module';
 import { SalesModule } from '../modules/sales/sales_module';
 
 @Module({
@@ -17,6 +18,7 @@ import { SalesModule } from '../modules/sales/sales_module';
     InventoryModule,
     SalesModule,
     CustomersModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [
