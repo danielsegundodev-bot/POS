@@ -1,0 +1,75 @@
+<pos-page-header title="Inventario">
+  <pos-button variant="primary" type="button" (pressed)="createNew()">
+    Registrar movimiento
+  </pos-button>
+</pos-page-header>
+
+@if (error()) {
+<p class="movements__error" role="alert">{{ error() }}</p>
+} @if (loading() && movements().length === 0) {
+<pos-empty-state icon="hourglass_empty" title="Cargando…" message="" />
+} @else if (!loading() && movements().length === 0) {
+<pos-empty-state
+  icon="warehouse"
+  title="Sin movimientos"
+  message="Registra una entrada, salida o ajuste para empezar."
+/>
+} @else {
+<div class="movements__table-wrap">
+  <table class="movements__table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Producto</th>
+        <th>Tipo</th>
+        <th class="movements__num">Cantidad</th>
+        <th>Motivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (movement of movements(); track movement.id) {
+      <tr>
+        <td>{{ formatDate(movement.createdAt) }}</td>
+        <td>
+          {{ movement.product?.name ?? '—' }}
+          <span class="movements__sku">{{ movement.product?.sku }}</span>
+        </td>
+        <td>
+          <span
+            class="movements__badge"
+            [class.movements__badge--in]="movement.type === 'in'"
+            [class.movements__badge--out]="movement.type === 'out'"
+          >
+            {{ typeLabels[movement.type] }}
+          </span>
+        </td>
+        <td class="movements__num">{{ signedQuantity(movement) }}</td>
+        <td>{{ movement.reason ?? '—' }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="movements__pager">
+  <pos-button
+    variant="basic"
+    type="button"
+    [disabled]="page() <= 1"
+    (pressed)="previousPage()"
+  >
+    Anterior
+  </pos-button>
+  <span class="movements__pager-info">
+    Página {{ page() }} de {{ totalPages() }} · {{ total() }} movimientos
+  </span>
+  <pos-button
+    variant="basic"
+    type="button"
+    [disabled]="page() >= totalPages()"
+    (pressed)="nextPage()"
+  >
+    Siguiente
+  </pos-button>
+</div>
+}

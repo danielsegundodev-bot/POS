@@ -1,0 +1,80 @@
+<pos-page-header title="Registrar movimiento" />
+
+<form class="movement-form" (submit)="submit($event)" novalidate>
+  <div class="movement-form__grid">
+    <pos-field label="Producto">
+      <select
+        class="movement-form__input"
+        name="productId"
+        required
+        [disabled]="productsLoading()"
+        [value]="productId()"
+        (change)="setProductId($event)"
+      >
+        @if (productsLoading()) {
+        <option value="">Cargando productos…</option>
+        } @else if (products().length === 0) {
+        <option value="">Sin productos disponibles</option>
+        } @else { @for (product of products(); track product.id) {
+        <option [value]="product.id">
+          {{ product.name }} ({{ product.sku }}) · stock {{ product.stock }}
+        </option>
+        } }
+      </select>
+    </pos-field>
+
+    <pos-field label="Tipo">
+      <select
+        class="movement-form__input"
+        name="type"
+        [value]="type()"
+        (change)="setType($event)"
+      >
+        <option value="in">Entrada</option>
+        <option value="out">Salida</option>
+        <option value="adjustment">Ajuste (valor absoluto)</option>
+      </select>
+    </pos-field>
+
+    <pos-field label="Cantidad">
+      <input
+        class="movement-form__input"
+        type="number"
+        name="quantity"
+        min="0"
+        required
+        [value]="quantity()"
+        (input)="setQuantity($event)"
+      />
+    </pos-field>
+
+    <pos-field label="Motivo (opcional)">
+      <input
+        class="movement-form__input"
+        type="text"
+        name="reason"
+        placeholder="Compra, merma, inventario físico…"
+        [value]="reason()"
+        (input)="setReason($event)"
+      />
+    </pos-field>
+  </div>
+
+  @if (error()) {
+  <p class="movement-form__error" role="alert">{{ error() }}</p>
+  }
+
+  <div class="movement-form__actions">
+    <pos-button variant="basic" type="button" (pressed)="cancel()">
+      Cancelar
+    </pos-button>
+    <pos-button
+      type="submit"
+      variant="primary"
+      [disabled]="loading() || products().length === 0"
+      [loading]="loading()"
+    >
+      Registrar
+    </pos-button>
+  </div>
+</form>

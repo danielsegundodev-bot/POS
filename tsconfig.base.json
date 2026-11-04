@@ -24,7 +24,8 @@
       "@pos/data-access": ["./libs/data_access/src/index.ts"],
       "@pos/core": ["./libs/core/src/index.ts"],
       "@pos/features/auth": ["./libs/features/auth/src/index.ts"],
-      "@pos/features/products": ["./libs/features/products/src/index.ts"]
+      "@pos/features/products": ["./libs/features/products/src/index.ts"],
+      "@pos/features/inventory": ["./libs/features/inventory/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
