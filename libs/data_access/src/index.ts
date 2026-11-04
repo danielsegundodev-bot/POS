@@ -8,4 +8,6 @@ export * from './lib/http_inventory_api';
 export * from './lib/http_products_api';
 export * from './lib/inventory_api';
 export * from './lib/products_api';
+export * from './lib/sales_api';
+export * from './lib/http_sales_api';
 export * from './lib/tokens';

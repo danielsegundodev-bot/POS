@@ -1,13 +1,10 @@
-import { Money } from '@pos/core';
-import { TaxRate } from './category';
-
 export type PaymentMethod = 'cash' | 'card' | 'transfer' | 'other';
 
 export interface PaymentInfo {
   method: PaymentMethod;
   /** Importe recibido en efectivo (centavos); solo aplica para `cash`. */
-  received?: Money;
-  change?: Money;
+  received?: number;
+  change?: number;
 }
 
 export interface SaleLine {
@@ -16,13 +13,14 @@ export interface SaleLine {
   /** Nombre del producto al momento de la venta (snapshot). */
   productName: string;
   quantity: number;
-  unitPrice: Money;
+  unitPrice: number;
   /** Descuento total de la línea en centavos. */
-  discount: Money;
-  taxRate: TaxRate;
-  subtotal: Money;
-  tax: Money;
-  total: Money;
+  discount: number;
+  /** Fracción impositiva al momento de la venta. */
+  taxRate: number;
+  subtotal: number;
+  tax: number;
+  total: number;
 }
 
 export interface Sale {
@@ -31,10 +29,10 @@ export interface Sale {
   folio: string;
   customerId?: string;
   lines: SaleLine[];
-  subtotal: Money;
-  tax: Money;
-  discount: Money;
-  total: Money;
+  subtotal: number;
+  tax: number;
+  discount: number;
+  total: number;
   payment: PaymentInfo;
   userId?: string;
   createdAt: string;
@@ -43,7 +41,18 @@ export interface Sale {
 export interface SaleQuery {
   from?: string;
   to?: string;
-  customerId?: string;
   page?: number;
   pageSize?: number;
+}
+
+export interface SaleLineInput {
+  productId: string;
+  quantity: number;
+  /** Descuento total de la línea en centavos. */
+  discount?: number;
+}
+
+export interface CreateSaleInput {
+  lines: SaleLineInput[];
+  payment: PaymentInfo;
 }
