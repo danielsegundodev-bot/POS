@@ -40,6 +40,22 @@ model Product {
   active      Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  movements   StockMovement[]
 
   @@index([categoryId])
+}
+
+model StockMovement {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  /** in = entrada, out = salida, adjustment = ajuste a valor absoluto. */
+  type      String
+  /** Cantidad: positiva para in/out; valor absoluto para adjustment. */
+  quantity  Int
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+  @@index([createdAt])
 }
