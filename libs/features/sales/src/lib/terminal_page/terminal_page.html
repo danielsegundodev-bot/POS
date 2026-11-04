@@ -1,0 +1,162 @@
+<pos-page-header title="Terminal POS" subtitle="Carrito, cobro y ticket" />
+
+@if (hasTicket()) {
+<div class="terminal__ticket">
+  <div class="terminal__ticket-head">
+    <h2>¡Venta registrada!</h2>
+    <p class="terminal__folio">{{ lastSale()?.folio }}</p>
+  </div>
+  <div class="terminal__ticket-actions">
+    <pos-button variant="primary" type="button" (pressed)="newSale()">
+      Nueva venta
+    </pos-button>
+  </div>
+</div>
+}
+
+<div class="terminal">
+  <section class="terminal__catalog">
+    <pos-search-input
+      placeholder="Buscar por nombre o SKU…"
+      (valueChange)="onSearch($event)"
+    />
+
+    @if (productsLoading()) {
+    <pos-empty-state icon="hourglass_empty" title="Cargando…" message="" />
+    } @else if (products().length === 0) {
+    <pos-empty-state
+      icon="search_off"
+      title="Sin productos"
+      message="No hay productos que coincidan con la búsqueda."
+    />
+    } @else {
+    <ul class="terminal__grid">
+      @for (product of products(); track product.id) {
+      <li>
+        <button type="button" class="terminal__card" (click)="add(product)">
+          <span class="terminal__card-name">{{ product.name }}</span>
+          <span class="terminal__card-meta">
+            {{ product.sku }} @if (product.trackStock) { · stock {{
+            product.stock }} }
+          </span>
+          <span class="terminal__card-price">
+            {{ formatMoney(product.price) }}
+          </span>
+        </button>
+      </li>
+      }
+    </ul>
+    }
+  </section>
+
+  <section class="terminal__cart">
+    <header class="terminal__cart-head">
+      <h2>Carrito</h2>
+      @if (itemCount() > 0) {
+      <pos-button variant="basic" type="button" (pressed)="clear()">
+        Vaciar
+      </pos-button>
+      }
+    </header>
+
+    @if (error()) {
+    <p class="terminal__error" role="alert">{{ error() }}</p>
+    } @if (lines().length === 0) {
+    <p class="terminal__empty-cart">
+      Toca un producto para agregarlo al carrito.
+    </p>
+    } @else {
+    <ul class="terminal__lines">
+      @for (line of lines(); track line.productId) {
+      <li class="terminal__line">
+        <div class="terminal__line-top">
+          <span class="terminal__line-name">{{ line.name }}</span>
+          <pos-button variant="basic" type="button" (pressed)="remove(line)">
+            Quitar
+          </pos-button>
+        </div>
+        <div class="terminal__line-controls">
+          <label>
+            Cant.
+            <input
+              type="number"
+              min="1"
+              class="terminal__input"
+              [value]="line.quantity"
+              (change)="setQuantity(line, $event)"
+            />
+          </label>
+          <label>
+            Desc. $
+            <input
+              type="number"
+              min="0"
+              step="0.5"
+              class="terminal__input"
+              [value]="(line.discount / 100).toFixed(2)"
+              (change)="setDiscount(line, $event)"
+            />
+          </label>
+          <span class="terminal__line-total">
+            {{ formatMoney(lineSubtotal(line) + lineTax(line)) }}
+          </span>
+        </div>
+      </li>
+      }
+    </ul>
+
+    <dl class="terminal__totals">
+      <div>
+        <dt>Subtotal</dt>
+        <dd>{{ formatMoney(subtotal()) }}</dd>
+      </div>
+      <div>
+        <dt>Impuestos</dt>
+        <dd>{{ formatMoney(tax()) }}</dd>
+      </div>
+      <div class="terminal__totals-total">
+        <dt>Total</dt>
+        <dd>{{ formatMoney(total()) }}</dd>
+      </div>
+    </dl>
+
+    <form class="terminal__pay" (submit)="pay($event)" novalidate>
+      <pos-field label="Método de pago">
+        <select
+          class="terminal__input terminal__input--wide"
+          [value]="paymentMethod()"
+          (change)="setMethod($event)"
+        >
+          @for (method of paymentMethods; track method.value) {
+          <option [value]="method.value">{{ method.label }}</option>
+          }
+        </select>
+      </pos-field>
+
+      @if (paymentMethod() === 'cash') {
+      <pos-field label="Recibido">
+        <input
+          type="number"
+          min="0"
+          step="0.5"
+          class="terminal__input terminal__input--wide"
+          placeholder="0.00"
+          [value]="receivedText()"
+          (input)="setReceived($event)"
+        />
+      </pos-field>
+      <p class="terminal__change">Cambio: {{ formatMoney(changeDue()) }}</p>
+      }
+
+      <pos-button
+        type="submit"
+        variant="primary"
+        [disabled]="!canPay()"
+        [loading]="loading()"
+      >
+        Cobrar {{ formatMoney(total()) }}
+      </pos-button>
+    </form>
+    }
+  </section>
+</div>
