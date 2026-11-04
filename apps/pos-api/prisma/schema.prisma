@@ -15,6 +15,7 @@ model User {
   role         String   @default("cashier")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  sales        Sale[]
 }
 
 model Category {
@@ -41,6 +42,7 @@ model Product {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   movements   StockMovement[]
+  saleLines   SaleLine[]
 
   @@index([categoryId])
 }
@@ -58,4 +60,53 @@ model StockMovement {
 
   @@index([productId])
   @@index([createdAt])
+}
+
+model Sale {
+  id              String     @id @default(cuid())
+  /** Folio legible del ticket, p. ej. "T-000123". */
+  folio           String     @unique
+  /** Credito en centavos. */
+  subtotal        Int
+  /** Impuesto total en centavos. */
+  tax             Int
+  /** Descuento total en centavos. */
+  discount        Int        @default(0)
+  /** Total a pagar en centavos. */
+  total           Int
+  /** cash | card | transfer | other */
+  paymentMethod   String
+  /** Importe recibido en efectivo (centavos); solo para cash. */
+  paymentReceived Int?
+  /** Cambio entregado en centavos; solo para cash. */
+  paymentChange   Int?
+  userId          String?
+  user            User?      @relation(fields: [userId], references: [id])
+  lines           SaleLine[]
+  createdAt       DateTime   @default(now())
+
+  @@index([createdAt])
+}
+
+model SaleLine {
+  id         String  @id @default(cuid())
+  saleId     String
+  sale       Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+  /** Nombre del producto al momento de la venta (snapshot). */
+  productName String
+  quantity   Int
+  /** Precio unitario en centavos (snapshot). */
+  unitPrice  Int
+  /** Descuento total de la línea en centavos. */
+  discount   Int     @default(0)
+  /** Fracción impositiva al momento de la venta (snapshot). */
+  taxRate    Float
+  subtotal   Int
+  tax        Int
+  total      Int
+
+  @@index([saleId])
+  @@index([productId])
 }
