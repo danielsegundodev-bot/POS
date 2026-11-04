@@ -175,7 +175,7 @@ en `apps/pos-api/prisma/schema.prisma`).
 - Antes de commit: `format:check` + `lint` + `test` + `build` en verde.
 - No hacer `push` a `main` sin pasar CI. No reescribir historia ya publicada.
 
-## 8. Roadmap de fases (estado actual: fase 05 ✅)
+## 8. Roadmap de fases (estado actual: fase 06 ✅)
 
 | Fase | Rama                    | Contenido                                            | Estado |
 | ---- | ----------------------- | ---------------------------------------------------- | ------ |
@@ -185,7 +185,7 @@ en `apps/pos-api/prisma/schema.prisma`).
 | 03   | `fase/03-productos`     | CRUD de catálogo (API + UI + store)                  | ✅     |
 | 04   | `fase/04-inventario`    | Movimientos de stock y existencias                   | ✅     |
 | 05   | `fase/05-ventas`        | Terminal POS: carrito, cobro, ticket                 | ✅     |
-| 06   | `fase/06-clientes`      | Fichas de clientes y ventas vinculadas               | ⏳     |
+| 06   | `fase/06-clientes`      | Fichas de clientes y ventas vinculadas               | ✅     |
 | 07   | `fase/07-reportes`      | Dashboard, ventas por día/producto                   | ⏳     |
 | 08   | `fase/08-configuracion` | Ajustes generales, usuarios, roles                   | ⏳     |
 

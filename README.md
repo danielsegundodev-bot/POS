@@ -97,7 +97,7 @@ POS/
 | 03   | Catálogo de productos                          | ✅     |
 | 04   | Inventario (movimientos de stock)              | ✅     |
 | 05   | Ventas POS (carrito, checkout, tickets)        | ✅     |
-| 06   | Clientes                                       | ⏳     |
+| 06   | Clientes                                       | ✅     |
 | 07   | Reportes y dashboard                           | ⏳     |
 | 08   | Configuración y usuarios                       | ⏳     |
 
