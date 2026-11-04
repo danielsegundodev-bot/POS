@@ -1,0 +1,94 @@
+<pos-page-header [title]="title()" />
+
+<form class="customer-form" (submit)="submit($event)" novalidate>
+  <div class="customer-form__grid">
+    <pos-field label="Nombre">
+      <input
+        class="customer-form__input"
+        type="text"
+        name="name"
+        required
+        [value]="name()"
+        (input)="setName($event)"
+      />
+    </pos-field>
+
+    <pos-field label="Email (opcional)">
+      <input
+        class="customer-form__input"
+        type="email"
+        name="email"
+        [value]="email()"
+        (input)="setEmail($event)"
+      />
+    </pos-field>
+
+    <pos-field label="Teléfono (opcional)">
+      <input
+        class="customer-form__input"
+        type="tel"
+        name="phone"
+        [value]="phone()"
+        (input)="setPhone($event)"
+      />
+    </pos-field>
+
+    <pos-field label="RFC / identificación fiscal">
+      <input
+        class="customer-form__input"
+        type="text"
+        name="taxId"
+        [value]="taxId()"
+        (input)="setTaxId($event)"
+      />
+    </pos-field>
+
+    <pos-field label="Dirección (opcional)">
+      <input
+        class="customer-form__input"
+        type="text"
+        name="address"
+        [value]="address()"
+        (input)="setAddress($event)"
+      />
+    </pos-field>
+
+    <pos-field label="Notas (opcional)">
+      <input
+        class="customer-form__input"
+        type="text"
+        name="notes"
+        [value]="notes()"
+        (input)="setNotes($event)"
+      />
+    </pos-field>
+  </div>
+
+  <label class="customer-form__check">
+    <input
+      type="checkbox"
+      name="active"
+      [checked]="active()"
+      (change)="setActive($event)"
+    />
+    Cliente activo
+  </label>
+
+  @if (error()) {
+  <p class="customer-form__error" role="alert">{{ error() }}</p>
+  }
+
+  <div class="customer-form__actions">
+    <pos-button variant="basic" type="button" (pressed)="cancel()">
+      Cancelar
+    </pos-button>
+    <pos-button
+      type="submit"
+      variant="primary"
+      [disabled]="loading()"
+      [loading]="loading()"
+    >
+      Guardar
+    </pos-button>
+  </div>
+</form>

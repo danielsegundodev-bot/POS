@@ -26,7 +26,8 @@
       "@pos/features/auth": ["./libs/features/auth/src/index.ts"],
       "@pos/features/products": ["./libs/features/products/src/index.ts"],
       "@pos/features/inventory": ["./libs/features/inventory/src/index.ts"],
-      "@pos/features/sales": ["./libs/features/sales/src/index.ts"]
+      "@pos/features/sales": ["./libs/features/sales/src/index.ts"],
+      "@pos/features/customers": ["./libs/features/customers/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

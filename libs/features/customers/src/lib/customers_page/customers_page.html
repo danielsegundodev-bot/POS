@@ -1,0 +1,91 @@
+<pos-page-header title="Clientes">
+  <pos-button variant="primary" type="button" (pressed)="createNew()">
+    Nuevo cliente
+  </pos-button>
+</pos-page-header>
+
+<div class="customers__toolbar">
+  <pos-search-input
+    placeholder="Buscar por nombre, email o teléfono…"
+    (valueChange)="onSearch($event)"
+  />
+</div>
+
+@if (error()) {
+<p class="customers__error" role="alert">{{ error() }}</p>
+} @if (loading() && items().length === 0) {
+<pos-empty-state icon="hourglass_empty" title="Cargando…" message="" />
+} @else if (!loading() && items().length === 0) {
+<pos-empty-state
+  icon="people"
+  title="Sin clientes"
+  message="Agrega tu primer cliente para vincular ventas."
+/>
+} @else {
+<div class="customers__table-wrap">
+  <table class="customers__table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Estado</th>
+        <th class="customers__actions">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (customer of items(); track customer.id) {
+      <tr>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.email ?? '—' }}</td>
+        <td>{{ customer.phone ?? '—' }}</td>
+        <td>
+          <span
+            class="customers__badge"
+            [class.customers__badge--inactive]="!customer.active"
+          >
+            {{ customer.active ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+        <td class="customers__actions">
+          <pos-button variant="basic" type="button" (pressed)="edit(customer)">
+            Editar
+          </pos-button>
+          @if (customer.active) {
+          <pos-button
+            variant="basic"
+            type="button"
+            (pressed)="remove(customer)"
+          >
+            Eliminar
+          </pos-button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="customers__pager">
+  <pos-button
+    variant="basic"
+    type="button"
+    [disabled]="page() <= 1"
+    (pressed)="previousPage()"
+  >
+    Anterior
+  </pos-button>
+  <span class="customers__pager-info">
+    Página {{ page() }} de {{ totalPages() }} · {{ total() }} clientes
+  </span>
+  <pos-button
+    variant="basic"
+    type="button"
+    [disabled]="page() >= totalPages()"
+    (pressed)="nextPage()"
+  >
+    Siguiente
+  </pos-button>
+</div>
+}
