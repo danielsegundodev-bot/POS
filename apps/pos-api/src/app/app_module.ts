@@ -9,6 +9,8 @@ import { PrismaModule } from '../modules/prisma/prisma_module';
 import { ProductsModule } from '../modules/products/products_module';
 import { ReportsModule } from '../modules/reports/reports_module';
 import { SalesModule } from '../modules/sales/sales_module';
+import { SettingsModule } from '../modules/settings/settings_module';
+import { UsersModule } from '../modules/users/users_module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { SalesModule } from '../modules/sales/sales_module';
     SalesModule,
     CustomersModule,
     ReportsModule,
+    SettingsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
