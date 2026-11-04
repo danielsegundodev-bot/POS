@@ -94,7 +94,7 @@ POS/
 | 00   | Monorepo Nx, tooling, Material/Tailwind, docs  | ✅     |
 | 01   | Arquitectura core: shell, atomic design, rutas | ✅     |
 | 02   | Autenticación (JWT)                            | ✅     |
-| 03   | Catálogo de productos                          | ⏳     |
+| 03   | Catálogo de productos                          | ✅     |
 | 04   | Inventario (movimientos de stock)              | ⏳     |
 | 05   | Ventas POS (carrito, checkout, tickets)        | ⏳     |
 | 06   | Clientes                                       | ⏳     |
