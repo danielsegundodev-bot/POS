@@ -53,3 +53,8 @@ Thumbs.db
 __screenshots__/
 
 test-output
+
+# entorno local / bases de datos
+.env
+*.db
+*.db-journal
