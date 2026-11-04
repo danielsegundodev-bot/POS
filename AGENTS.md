@@ -175,13 +175,13 @@ en `apps/pos-api/prisma/schema.prisma`).
 - Antes de commit: `format:check` + `lint` + `test` + `build` en verde.
 - No hacer `push` a `main` sin pasar CI. No reescribir historia ya publicada.
 
-## 8. Roadmap de fases (estado actual: fase 01 ✅)
+## 8. Roadmap de fases (estado actual: fase 02 ✅)
 
 | Fase | Rama                    | Contenido                                            | Estado |
 | ---- | ----------------------- | ---------------------------------------------------- | ------ |
 | 00   | `fase/00-setup`         | Monorepo, tooling, Material/Tailwind, docs, CI       | ✅     |
 | 01   | `fase/01-arquitectura`  | Libs atómicas, shell/layout, rutas lazy, stores base | ✅     |
-| 02   | `fase/02-auth`          | JWT en API + guard/sesión en web                     | ⏳     |
+| 02   | `fase/02-auth`          | JWT en API + guard/sesión en web                     | ✅     |
 | 03   | `fase/03-productos`     | CRUD de catálogo (API + UI + store)                  | ⏳     |
 | 04   | `fase/04-inventario`    | Movimientos de stock y existencias                   | ⏳     |
 | 05   | `fase/05-ventas`        | Terminal POS: carrito, cobro, ticket                 | ⏳     |
