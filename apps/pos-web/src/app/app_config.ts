@@ -13,9 +13,11 @@ import {
   HttpCustomersApi,
   HttpInventoryApi,
   HttpProductsApi,
+  HttpReportsApi,
   HttpSalesApi,
   InventoryApi,
   ProductsApi,
+  ReportsApi,
   SalesApi,
   USE_MOCKS,
   authInterceptor,
@@ -35,5 +37,6 @@ export const appConfig: ApplicationConfig = {
     { provide: InventoryApi, useExisting: HttpInventoryApi },
     { provide: SalesApi, useExisting: HttpSalesApi },
     { provide: CustomersApi, useExisting: HttpCustomersApi },
+    { provide: ReportsApi, useExisting: HttpReportsApi },
   ],
 };

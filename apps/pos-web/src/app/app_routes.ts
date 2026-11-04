@@ -43,8 +43,8 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'reportes',
-        component: PlaceholderPageComponent,
-        data: { title: 'Reportes' },
+        loadChildren: () =>
+          import('@pos/features/reports').then((m) => m.reportsRoutes),
       },
       {
         path: 'configuracion',
