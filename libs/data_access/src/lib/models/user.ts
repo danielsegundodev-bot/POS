@@ -17,8 +17,3 @@ export interface AuthSession {
   /** ISO8601 de expiración del token. */
   expiresAt: string;
 }
-
-export interface LoginRequest {
-  username: string;
-  password: string;
-}

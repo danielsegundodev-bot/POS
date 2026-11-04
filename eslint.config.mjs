@@ -36,6 +36,7 @@ export default [
                 'type:core',
                 'type:data-access',
                 'type:shell',
+                'type:feature',
               ],
             },
             {

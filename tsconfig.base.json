@@ -22,7 +22,8 @@
       "@pos/ui-organisms": ["./libs/ui_organisms/src/index.ts"],
       "@pos/shell": ["./libs/shell/src/index.ts"],
       "@pos/data-access": ["./libs/data_access/src/index.ts"],
-      "@pos/core": ["./libs/core/src/index.ts"]
+      "@pos/core": ["./libs/core/src/index.ts"],
+      "@pos/features/auth": ["./libs/features/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

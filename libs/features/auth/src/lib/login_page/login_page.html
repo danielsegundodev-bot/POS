@@ -1,0 +1,43 @@
+<div class="pos-login">
+  <form class="pos-login__card" (submit)="submit($event)" novalidate>
+    <h1 class="pos-login__title">Iniciar sesión</h1>
+    <p class="pos-login__subtitle">Punto de venta</p>
+
+    <pos-field label="Correo">
+      <input
+        class="pos-login__input"
+        type="email"
+        name="email"
+        autocomplete="username"
+        required
+        [value]="email()"
+        (input)="setEmail($event)"
+      />
+    </pos-field>
+
+    <pos-field label="Contraseña">
+      <input
+        class="pos-login__input"
+        type="password"
+        name="password"
+        autocomplete="current-password"
+        required
+        [value]="password()"
+        (input)="setPassword($event)"
+      />
+    </pos-field>
+
+    @if (error()) {
+    <p class="pos-login__error" role="alert">{{ error() }}</p>
+    }
+
+    <pos-button
+      type="submit"
+      variant="primary"
+      [disabled]="loading()"
+      [loading]="loading()"
+    >
+      Ingresar
+    </pos-button>
+  </form>
+</div>
