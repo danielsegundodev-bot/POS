@@ -15,4 +15,8 @@ export * from './lib/reports_api';
 export * from './lib/http_reports_api';
 export * from './lib/sales_api';
 export * from './lib/http_sales_api';
+export * from './lib/settings_api';
+export * from './lib/http_settings_api';
+export * from './lib/users_admin_api';
+export * from './lib/http_users_admin_api';
 export * from './lib/tokens';
