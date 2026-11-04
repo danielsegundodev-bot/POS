@@ -33,8 +33,8 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'ventas',
-        component: PlaceholderPageComponent,
-        data: { title: 'Ventas' },
+        loadChildren: () =>
+          import('@pos/features/sales').then((m) => m.salesRoutes),
       },
       {
         path: 'clientes',

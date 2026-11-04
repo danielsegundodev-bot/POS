@@ -11,8 +11,10 @@ import {
   HttpAuthApi,
   HttpInventoryApi,
   HttpProductsApi,
+  HttpSalesApi,
   InventoryApi,
   ProductsApi,
+  SalesApi,
   USE_MOCKS,
   authInterceptor,
 } from '@pos/data-access';
@@ -29,5 +31,6 @@ export const appConfig: ApplicationConfig = {
     { provide: AuthApi, useExisting: HttpAuthApi },
     { provide: ProductsApi, useExisting: HttpProductsApi },
     { provide: InventoryApi, useExisting: HttpInventoryApi },
+    { provide: SalesApi, useExisting: HttpSalesApi },
   ],
 };
