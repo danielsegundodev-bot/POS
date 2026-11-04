@@ -3,6 +3,7 @@ import { APP_PIPE } from '@nestjs/core';
 import { AppController } from './app_controller';
 import { AppService } from './app_service';
 import { AuthModule } from '../modules/auth/auth_module';
+import { CustomersModule } from '../modules/customers/customers_module';
 import { InventoryModule } from '../modules/inventory/inventory_module';
 import { PrismaModule } from '../modules/prisma/prisma_module';
 import { ProductsModule } from '../modules/products/products_module';
@@ -15,6 +16,7 @@ import { SalesModule } from '../modules/sales/sales_module';
     ProductsModule,
     InventoryModule,
     SalesModule,
+    CustomersModule,
   ],
   controllers: [AppController],
   providers: [
