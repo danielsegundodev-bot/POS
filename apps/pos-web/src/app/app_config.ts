@@ -9,6 +9,8 @@ import {
   API_BASE_URL,
   AuthApi,
   HttpAuthApi,
+  HttpProductsApi,
+  ProductsApi,
   USE_MOCKS,
   authInterceptor,
 } from '@pos/data-access';
@@ -23,5 +25,6 @@ export const appConfig: ApplicationConfig = {
     { provide: API_BASE_URL, useValue: '/api' },
     { provide: USE_MOCKS, useValue: false },
     { provide: AuthApi, useExisting: HttpAuthApi },
+    { provide: ProductsApi, useExisting: HttpProductsApi },
   ],
 };
