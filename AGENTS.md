@@ -12,7 +12,8 @@ servicios…). Monorepo Nx con:
 
 - `apps/pos-web` — SPA Angular 22 (standalone, zoneless, Vitest).
 - `apps/pos-api` — API NestJS 11 (Prisma + SQLite en dev).
-- `libs/` — bibliotecas compartidas (aún vacías; se poblan desde la fase 01).
+- `libs/` — bibliotecas compartidas: `core`, `data_access`, `ui_atoms`, `ui_molecules`,
+  `ui_organisms`, `shell`; `features/` se agrega por fase.
 
 ## 2. Comandos (usa siempre Nx, nunca la tooling directa)
 
@@ -158,7 +159,7 @@ en `apps/pos-api/prisma/schema.prisma`).
 
 ## 7. Git — manejo responsable del repo
 
-- Ramas por fase: `fase/00-setup`, `fase/01-arquitectura-core`, `fase/02-auth`, …
+- Ramas por fase: `fase/00-setup`, `fase/01-arquitectura`, `fase/02-auth`, …
   Se crean desde `main` y se integran con `--ff-only` cuando la fase está en verde.
 - Commits **Conventional Commits en español**, enfocados y atómicos:
 
@@ -174,12 +175,12 @@ en `apps/pos-api/prisma/schema.prisma`).
 - Antes de commit: `format:check` + `lint` + `test` + `build` en verde.
 - No hacer `push` a `main` sin pasar CI. No reescribir historia ya publicada.
 
-## 8. Roadmap de fases (estado actual: fase 00 ✅)
+## 8. Roadmap de fases (estado actual: fase 01 ✅)
 
 | Fase | Rama                    | Contenido                                            | Estado |
 | ---- | ----------------------- | ---------------------------------------------------- | ------ |
 | 00   | `fase/00-setup`         | Monorepo, tooling, Material/Tailwind, docs, CI       | ✅     |
-| 01   | `fase/01-arquitectura`  | Libs atómicas, shell/layout, rutas lazy, stores base | ⏳     |
+| 01   | `fase/01-arquitectura`  | Libs atómicas, shell/layout, rutas lazy, stores base | ✅     |
 | 02   | `fase/02-auth`          | JWT en API + guard/sesión en web                     | ⏳     |
 | 03   | `fase/03-productos`     | CRUD de catálogo (API + UI + store)                  | ⏳     |
 | 04   | `fase/04-inventario`    | Movimientos de stock y existencias                   | ⏳     |
