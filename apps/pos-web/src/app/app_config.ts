@@ -9,7 +9,9 @@ import {
   API_BASE_URL,
   AuthApi,
   HttpAuthApi,
+  HttpInventoryApi,
   HttpProductsApi,
+  InventoryApi,
   ProductsApi,
   USE_MOCKS,
   authInterceptor,
@@ -26,5 +28,6 @@ export const appConfig: ApplicationConfig = {
     { provide: USE_MOCKS, useValue: false },
     { provide: AuthApi, useExisting: HttpAuthApi },
     { provide: ProductsApi, useExisting: HttpProductsApi },
+    { provide: InventoryApi, useExisting: HttpInventoryApi },
   ],
 };

@@ -28,8 +28,8 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'inventario',
-        component: PlaceholderPageComponent,
-        data: { title: 'Inventario' },
+        loadChildren: () =>
+          import('@pos/features/inventory').then((m) => m.inventoryRoutes),
       },
       {
         path: 'ventas',
