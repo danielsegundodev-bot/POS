@@ -48,8 +48,8 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'configuracion',
-        component: PlaceholderPageComponent,
-        data: { title: 'Configuración' },
+        loadChildren: () =>
+          import('@pos/features/settings').then((m) => m.settingsRoutes),
       },
       { path: '**', redirectTo: 'inicio' },
     ],

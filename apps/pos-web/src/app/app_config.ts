@@ -15,11 +15,15 @@ import {
   HttpProductsApi,
   HttpReportsApi,
   HttpSalesApi,
+  HttpSettingsApi,
+  HttpUsersAdminApi,
   InventoryApi,
   ProductsApi,
   ReportsApi,
   SalesApi,
+  SettingsApi,
   USE_MOCKS,
+  UsersAdminApi,
   authInterceptor,
 } from '@pos/data-access';
 import { appRoutes } from './app_routes';
@@ -38,5 +42,7 @@ export const appConfig: ApplicationConfig = {
     { provide: SalesApi, useExisting: HttpSalesApi },
     { provide: CustomersApi, useExisting: HttpCustomersApi },
     { provide: ReportsApi, useExisting: HttpReportsApi },
+    { provide: SettingsApi, useExisting: HttpSettingsApi },
+    { provide: UsersAdminApi, useExisting: HttpUsersAdminApi },
   ],
 };
