@@ -1,0 +1,113 @@
+.dashboard {
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 0.5rem;
+    font: inherit;
+    background: transparent;
+    color: inherit;
+  }
+
+  &__filter-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__error {
+    margin: 0 0 1rem;
+    color: var(--mat-sys-error);
+    font-size: 0.875rem;
+  }
+
+  &__kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__kpi {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 0.75rem;
+    background: var(--mat-sys-surface-container-low);
+  }
+
+  &__kpi-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+  }
+
+  &__kpi-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__panel {
+    padding: 1rem;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 0.75rem;
+    background: var(--mat-sys-surface-container-low);
+    margin-bottom: 1rem;
+
+    h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1rem;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+
+    th,
+    td {
+      padding: 0.55rem 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+    }
+
+    th {
+      font-weight: 600;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  &__num {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__muted {
+    margin: 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+}

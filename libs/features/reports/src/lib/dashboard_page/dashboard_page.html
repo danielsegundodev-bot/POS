@@ -1,0 +1,154 @@
+<pos-page-header
+  title="Reportes"
+  subtitle="Ventas por día, producto y método de pago"
+/>
+
+<div class="dashboard__filters">
+  <pos-field label="Desde">
+    <input
+      class="dashboard__input"
+      type="date"
+      [value]="from()"
+      (change)="setFrom($event)"
+    />
+  </pos-field>
+  <pos-field label="Hasta">
+    <input
+      class="dashboard__input"
+      type="date"
+      [value]="to()"
+      (change)="setTo($event)"
+    />
+  </pos-field>
+  <div class="dashboard__filter-actions">
+    <pos-button variant="primary" type="button" (pressed)="apply()">
+      Aplicar
+    </pos-button>
+    <pos-button variant="basic" type="button" (pressed)="clear()">
+      Limpiar
+    </pos-button>
+  </div>
+</div>
+
+@if (error()) {
+<p class="dashboard__error" role="alert">{{ error() }}</p>
+} @if (loading() && !totals()) {
+<pos-empty-state icon="hourglass_empty" title="Cargando…" message="" />
+} @else if (!totals()) {
+<pos-empty-state
+  icon="bar_chart"
+  title="Sin datos"
+  message="No hay información para el rango seleccionado."
+/>
+} @else {
+<section class="dashboard__kpis">
+  <article class="dashboard__kpi">
+    <span class="dashboard__kpi-label">Tickets</span>
+    <span class="dashboard__kpi-value">{{ totals()?.tickets ?? 0 }}</span>
+  </article>
+  <article class="dashboard__kpi">
+    <span class="dashboard__kpi-label">Ingresos</span>
+    <span class="dashboard__kpi-value">
+      {{ formatMoney(totals()?.revenue ?? 0) }}
+    </span>
+  </article>
+  <article class="dashboard__kpi">
+    <span class="dashboard__kpi-label">Ticket promedio</span>
+    <span class="dashboard__kpi-value">
+      {{ formatMoney(totals()?.avgTicket ?? 0) }}
+    </span>
+  </article>
+  <article class="dashboard__kpi">
+    <span class="dashboard__kpi-label">Impuestos</span>
+    <span class="dashboard__kpi-value">
+      {{ formatMoney(totals()?.tax ?? 0) }}
+    </span>
+  </article>
+  <article class="dashboard__kpi">
+    <span class="dashboard__kpi-label">Descuentos</span>
+    <span class="dashboard__kpi-value">
+      {{ formatMoney(totals()?.discount ?? 0) }}
+    </span>
+  </article>
+</section>
+
+<div class="dashboard__grid">
+  <section class="dashboard__panel">
+    <h2>Ventas por día</h2>
+    @if (byDay().length === 0) {
+    <p class="dashboard__muted">Sin ventas en el rango.</p>
+    } @else {
+    <table class="dashboard__table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th class="dashboard__num">Tickets</th>
+          <th class="dashboard__num">Ingresos</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of byDay(); track row.date) {
+        <tr>
+          <td>{{ row.date }}</td>
+          <td class="dashboard__num">{{ row.tickets }}</td>
+          <td class="dashboard__num">{{ formatMoney(row.revenue) }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </section>
+
+  <section class="dashboard__panel">
+    <h2>Por método de pago</h2>
+    @if (byPayment().length === 0) {
+    <p class="dashboard__muted">Sin datos.</p>
+    } @else {
+    <table class="dashboard__table">
+      <thead>
+        <tr>
+          <th>Método</th>
+          <th class="dashboard__num">Tickets</th>
+          <th class="dashboard__num">Ingresos</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of byPayment(); track row.method) {
+        <tr>
+          <td>{{ paymentLabels[row.method] ?? row.method }}</td>
+          <td class="dashboard__num">{{ row.tickets }}</td>
+          <td class="dashboard__num">{{ formatMoney(row.revenue) }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </section>
+</div>
+
+<section class="dashboard__panel">
+  <h2>Productos más vendidos</h2>
+  @if (byProduct().length === 0) {
+  <p class="dashboard__muted">Sin datos.</p>
+  } @else {
+  <table class="dashboard__table">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th class="dashboard__num">Cantidad</th>
+        <th class="dashboard__num">Ingresos</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of byProduct(); track row.productId) {
+      <tr>
+        <td>{{ row.productName }}</td>
+        <td class="dashboard__num">{{ row.quantity }}</td>
+        <td class="dashboard__num">{{ formatMoney(row.revenue) }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</section>
+}
