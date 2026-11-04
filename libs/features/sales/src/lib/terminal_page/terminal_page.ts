@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { formatMoney } from '@pos/core';
-import { Product, ProductsApi } from '@pos/data-access';
+import { Customer, CustomersApi, Product, ProductsApi } from '@pos/data-access';
 import { PosButtonComponent, PosEmptyStateComponent } from '@pos/ui-atoms';
 import { PosFieldComponent, PosSearchInputComponent } from '@pos/ui-molecules';
 import { PosPageHeaderComponent } from '@pos/ui-organisms';
@@ -28,6 +28,7 @@ type PaymentMethod = 'cash' | 'card' | 'transfer' | 'other';
 export class TerminalPageComponent implements OnInit {
   private readonly store = inject(SalesStore);
   private readonly productsApi = inject(ProductsApi);
+  private readonly customersApi = inject(CustomersApi);
 
   readonly lines = this.store.lines;
   readonly loading = this.store.isLoading;
@@ -38,9 +39,11 @@ export class TerminalPageComponent implements OnInit {
   readonly itemCount = this.store.itemCount;
   readonly hasTicket = this.store.hasTicket;
   readonly lastSale = this.store.lastSale;
+  readonly customerId = this.store.customerId;
 
   readonly products = signal<Product[]>([]);
   readonly productsLoading = signal(true);
+  readonly customers = signal<Customer[]>([]);
   readonly paymentMethod = signal<PaymentMethod>('cash');
   readonly receivedText = signal('');
 
@@ -57,6 +60,7 @@ export class TerminalPageComponent implements OnInit {
 
   ngOnInit(): void {
     void this.loadProducts();
+    void this.loadCustomers();
   }
 
   private async loadProducts(): Promise<void> {
@@ -69,6 +73,18 @@ export class TerminalPageComponent implements OnInit {
       this.products.set(page.items);
     } finally {
       this.productsLoading.set(false);
+    }
+  }
+
+  private async loadCustomers(): Promise<void> {
+    try {
+      const page = await this.customersApi.list({
+        includeInactive: false,
+        pageSize: 100,
+      });
+      this.customers.set(page.items);
+    } catch {
+      this.customers.set([]);
     }
   }
 
@@ -112,6 +128,11 @@ export class TerminalPageComponent implements OnInit {
   clear(): void {
     this.store.clearCart();
     this.receivedText.set('');
+  }
+
+  setCustomerId(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    this.store.setCustomerId(value || null);
   }
 
   setMethod(event: Event): void {

@@ -121,6 +121,19 @@
     </dl>
 
     <form class="terminal__pay" (submit)="pay($event)" novalidate>
+      <pos-field label="Cliente (opcional)">
+        <select
+          class="terminal__input terminal__input--wide"
+          [value]="customerId() ?? ''"
+          (change)="setCustomerId($event)"
+        >
+          <option value="">Consumidor final</option>
+          @for (customer of customers(); track customer.id) {
+          <option [value]="customer.id">{{ customer.name }}</option>
+          }
+        </select>
+      </pos-field>
+
       <pos-field label="Método de pago">
         <select
           class="terminal__input terminal__input--wide"

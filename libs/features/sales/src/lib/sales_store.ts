@@ -24,6 +24,8 @@ export interface SalesState {
   lines: CartLine[];
   loading: boolean;
   error: string | null;
+  /** Cliente opcional de la venta en curso. */
+  customerId: string | null;
   /** Última venta cobrada (ticket). */
   lastSale: Sale | null;
 }
@@ -32,6 +34,7 @@ const initialState: SalesState = {
   lines: [],
   loading: false,
   error: null,
+  customerId: null,
   lastSale: null,
 };
 
@@ -129,7 +132,10 @@ export const SalesStore = signalStore(
         });
       },
       clearCart(): void {
-        patchState(store, { lines: [], error: null });
+        patchState(store, { lines: [], error: null, customerId: null });
+      },
+      setCustomerId(customerId: string | null): void {
+        patchState(store, { customerId: customerId || null });
       },
       dismissTicket(): void {
         patchState(store, { lastSale: null });
@@ -152,10 +158,12 @@ export const SalesStore = signalStore(
               discount: line.discount || undefined,
             })),
             payment: { method, received },
+            customerId: store.customerId() ?? undefined,
           });
           patchState(store, {
             loading: false,
             lines: [],
+            customerId: null,
             lastSale: sale,
           });
           return true;
