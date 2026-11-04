@@ -4,9 +4,10 @@ import { AppController } from './app_controller';
 import { AppService } from './app_service';
 import { AuthModule } from '../modules/auth/auth_module';
 import { PrismaModule } from '../modules/prisma/prisma_module';
+import { ProductsModule } from '../modules/products/products_module';
 
 @Module({
-  imports: [PrismaModule, AuthModule],
+  imports: [PrismaModule, AuthModule, ProductsModule],
   controllers: [AppController],
   providers: [
     AppService,
