@@ -8,7 +8,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {
   API_BASE_URL,
   AuthApi,
+  CustomersApi,
   HttpAuthApi,
+  HttpCustomersApi,
   HttpInventoryApi,
   HttpProductsApi,
   HttpSalesApi,
@@ -32,5 +34,6 @@ export const appConfig: ApplicationConfig = {
     { provide: ProductsApi, useExisting: HttpProductsApi },
     { provide: InventoryApi, useExisting: HttpInventoryApi },
     { provide: SalesApi, useExisting: HttpSalesApi },
+    { provide: CustomersApi, useExisting: HttpCustomersApi },
   ],
 };
